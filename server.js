@@ -10,9 +10,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.post('/decode', (req, res) => {
-  console.log(req.body);
-  coder.encode(req, (item) => {
-    console.log(item);
+  coder.root(req, (item) => {
     res.json(item);
   });
 });
