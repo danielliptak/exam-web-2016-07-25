@@ -1,4 +1,4 @@
-const trigger = (function() {
+const trigger = ( () => {
   const url = 'http://localhost:3000/decode';
 
   function getInputDatas() {
@@ -8,8 +8,16 @@ const trigger = (function() {
     });
   }
 
+  function checkInput() {
+    var b = JSON.parse(getInputDatas());
+    if (b.text.split('').some(elem => elem.match(/[a-zA-Z\s]/) === null)) {
+      return window.alert('wrong input');
+    }
+    return getInputDatas();
+  }
+
   function startEncoding() {
-    makerequest('POST', url, getInputDatas(), 'Content-Type',
+    makerequest('POST', url, checkInput(), 'Content-Type',
     (response) => {
       document.querySelector('p').innerHTML = response.text;
     });
